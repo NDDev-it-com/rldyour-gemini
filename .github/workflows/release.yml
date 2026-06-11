@@ -50,8 +50,12 @@ jobs:
         run: |
           set -euo pipefail
           tag="${GITHUB_REF_NAME}"
-          gh release create "$tag" dist/rldyour-gemini-source.zip dist/SHA256SUMS dist/sbom.spdx.json \
-            --title "$tag" \
-            --notes-file CHANGELOG.md \
-            --verify-tag
-
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" dist/rldyour-gemini-source.zip dist/SHA256SUMS dist/sbom.spdx.json --clobber
+            gh release edit "$tag" --title "$tag" --notes-file CHANGELOG.md --draft=false --prerelease=false
+          else
+            gh release create "$tag" dist/rldyour-gemini-source.zip dist/SHA256SUMS dist/sbom.spdx.json \
+              --title "$tag" \
+              --notes-file CHANGELOG.md \
+              --verify-tag
+          fi
