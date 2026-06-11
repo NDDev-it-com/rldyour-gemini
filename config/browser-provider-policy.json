@@ -26,6 +26,14 @@
     "@playwright/mcp",
     "semgrep",
     "semgrep-mcp"
-  ]
+  ],
+  "gemini_builtin_browser_agent": {
+    "enabled": false,
+    "reason": "This adapter release keeps the canonical provider matrix as Webwright, Playwright CLI, and Chrome DevTools MCP. Gemini built-in browser_agent is not enabled until separately modeled and validated.",
+    "must_not_replace": [
+      "webwright",
+      "playwright-cli",
+      "chrome-devtools-mcp"
+    ]
+  }
 }
-

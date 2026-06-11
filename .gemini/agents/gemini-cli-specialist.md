@@ -1,7 +1,7 @@
 ---
 name: gemini-cli-specialist
 description: Review Gemini CLI native formats, runtime baseline, commands, skills, hooks, and extension policy.
-tools: ["read", "grep", "shell"]
+tools: ["read_file", "grep_search", "run_shell_command"]
 ---
 
 # Purpose

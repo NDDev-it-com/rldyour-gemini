@@ -10,6 +10,12 @@
     "https://github.com/google-gemini/gemini-cli/releases/tag/v0.46.0",
     "https://github.com/google-gemini/gemini-cli"
   ],
+  "forbidden_as_stable": [
+    "github-main-package-json-nightly",
+    "github-releases-latest-redirect-when-conflicting",
+    "preview-tag",
+    "nightly-tag"
+  ],
   "installed_runtime_smoke": {
     "command": "gemini -p 'Return exactly READY.' --output-format json",
     "required_for_local_release": false,
@@ -27,4 +33,3 @@
     ]
   }
 }
-

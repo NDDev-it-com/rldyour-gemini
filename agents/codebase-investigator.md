@@ -1,7 +1,7 @@
 ---
 name: codebase-investigator
 description: Inspect Gemini adapter source, config, docs, validators, and tests without broad rewrites.
-tools: ["read", "grep", "shell"]
+tools: ["read_file", "grep_search", "run_shell_command"]
 ---
 
 # Purpose

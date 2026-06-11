@@ -6,7 +6,9 @@
   "general": {
     "defaultApprovalMode": "default",
     "preferredEditor": "vscode",
-    "checkpointing": true
+    "checkpointing": {
+      "enabled": true
+    }
   },
   "ui": {
     "hideTips": true,
@@ -21,49 +23,151 @@
   "hooksConfig": {
     "enabled": true
   },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "name": "session-start-context",
+            "type": "command",
+            "command": "$GEMINI_PROJECT_DIR/.gemini/hooks/session_start_context.sh",
+            "timeout": 5000,
+            "description": "Inject rldyour Gemini context without source mutation."
+          }
+        ]
+      }
+    ],
+    "BeforeTool": [
+      {
+        "matcher": "read_file|grep_search|run_shell_command|write_file|replace|mcp_.*",
+        "hooks": [
+          {
+            "name": "before-tool-policy",
+            "type": "command",
+            "command": "$GEMINI_PROJECT_DIR/.gemini/hooks/before_tool_policy.sh",
+            "timeout": 5000,
+            "description": "Block destructive shell/git/file and secret-bearing operations."
+          }
+        ]
+      }
+    ],
+    "AfterAgent": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "after-agent-post-task-sync",
+            "type": "command",
+            "command": "$GEMINI_PROJECT_DIR/.gemini/hooks/after_agent_post_task_sync.sh",
+            "timeout": 10000,
+            "description": "Report bounded post-task state without recursive loops."
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "exit",
+        "hooks": [
+          {
+            "name": "session-end-cleanup",
+            "type": "command",
+            "command": "$GEMINI_PROJECT_DIR/.gemini/hooks/session_end_cleanup.sh",
+            "timeout": 10000,
+            "description": "Report runtime-marker cleanup state without source mutation."
+          }
+        ]
+      }
+    ]
+  },
   "mcpServers": {
     "serena": {
       "command": "uvx",
-      "args": ["--from", "serena-agent==1.5.3", "--python", "3.13", "--prerelease", "allow", "serena", "start-mcp-server", "--project-from-cwd", "--context=gemini", "--enable-web-dashboard", "False", "--open-web-dashboard", "False"]
+      "args": [
+        "--from",
+        "serena-agent==1.5.3",
+        "--python",
+        "3.13",
+        "--prerelease",
+        "allow",
+        "serena",
+        "start-mcp-server",
+        "--project-from-cwd",
+        "--context=gemini",
+        "--enable-web-dashboard",
+        "False",
+        "--open-web-dashboard",
+        "False"
+      ],
+      "timeout": 180000
     },
     "chrome-devtools": {
       "command": "bunx",
-      "args": ["chrome-devtools-mcp@1.2.0", "--headless", "--isolated", "--no-usage-statistics", "--no-performance-crux"]
+      "args": [
+        "chrome-devtools-mcp@1.2.0",
+        "--headless",
+        "--isolated",
+        "--no-usage-statistics",
+        "--no-performance-crux"
+      ],
+      "timeout": 120000
     },
     "sequential-thinking": {
       "command": "bunx",
-      "args": ["@modelcontextprotocol/server-sequential-thinking@2025.12.18"]
+      "args": [
+        "@modelcontextprotocol/server-sequential-thinking@2025.12.18"
+      ],
+      "timeout": 120000
     },
     "shadcn": {
       "command": "bunx",
-      "args": ["shadcn@4.11.0", "mcp"]
+      "args": [
+        "shadcn@4.11.0",
+        "mcp"
+      ],
+      "timeout": 120000
     },
     "dart-flutter": {
       "command": "dart",
-      "args": ["mcp-server"]
+      "args": [
+        "mcp-server"
+      ],
+      "timeout": 120000
     },
     "context7": {
       "command": "bunx",
-      "args": ["@upstash/context7-mcp@3.1.0"],
-      "env": {"CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"}
+      "args": [
+        "@upstash/context7-mcp@3.1.0"
+      ],
+      "env": {
+        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+      },
+      "timeout": 120000
     },
     "github": {
       "url": "https://api.githubcopilot.com/mcp/",
-      "headers": {"Authorization": "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}"},
-      "toolsets": ["context", "repos", "issues", "pull_requests", "users"]
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}",
+        "X-MCP-Toolsets": "context,repos,issues,pull_requests,users"
+      },
+      "timeout": 120000
     },
     "deepwiki": {
-      "url": "https://mcp.deepwiki.com/mcp"
+      "url": "https://mcp.deepwiki.com/mcp",
+      "timeout": 120000
     },
     "grep": {
-      "url": "https://mcp.grep.app"
+      "url": "https://mcp.grep.app",
+      "timeout": 120000
     },
     "figma": {
-      "url": "http://127.0.0.1:3845/mcp"
+      "url": "http://127.0.0.1:3845/mcp",
+      "timeout": 120000
     },
     "openai-docs": {
-      "url": "https://mcp.openai.com"
+      "url": "https://mcp.openai.com",
+      "timeout": 120000
     }
   }
 }
-

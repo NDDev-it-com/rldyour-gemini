@@ -1,7 +1,7 @@
 ---
 name: design-reviewer
 description: Review visual implementation against Figma, screenshots, reference images, or written specs.
-tools: ["read", "grep", "shell", "mcp:figma", "mcp:chrome-devtools"]
+tools: ["read_file", "grep_search", "run_shell_command", "mcp_figma_*", "mcp_chrome-devtools_*"]
 ---
 
 # Purpose

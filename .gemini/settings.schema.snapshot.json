@@ -1,13 +1,21 @@
 {
   "schema": "https://geminicli.com/schemas/settings.schema.json",
-  "snapshot_verified_on": "2026-06-11",
-  "purpose": "Repository snapshot marker used by validators; live schema fetch is a separate network gate.",
-  "required_repository_keys": [
+  "snapshot_verified_on": "2026-06-12",
+  "purpose": "Repository policy snapshot for documented Gemini CLI settings categories; live schema fetch remains a separate network gate.",
+  "official_reference": "https://geminicli.com/docs/reference/configuration/",
+  "documented_repository_categories": [
     "context",
     "general",
     "ui",
     "privacy",
     "hooksConfig",
+    "hooks",
     "mcpServers"
+  ],
+  "forbidden_repository_shapes": [
+    "top-level checkpointing",
+    "top-level preferredEditor",
+    "top-level usageStatisticsEnabled",
+    "flat hook array"
   ]
 }

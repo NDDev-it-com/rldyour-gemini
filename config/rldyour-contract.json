@@ -3,7 +3,7 @@
   "adapter": {
     "id": "gemini",
     "name": "rldyour-gemini",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "runtime": "gemini-cli",
     "runtime_package": "@google/gemini-cli",
     "runtime_version": "0.46.0",
@@ -41,7 +41,8 @@
   "browser_provider_model": {
     "webwright": "high-level long-horizon browser workflows",
     "playwright-cli": "low-level screenshots, snapshots, traces, and visual evidence",
-    "chrome-devtools-mcp": "console, network, performance, Lighthouse, memory, live debugging"
+    "chrome-devtools-mcp": "console, network, performance, Lighthouse, memory, live debugging",
+    "gemini_builtin_browser_agent": "disabled for this release; NOT_PROVEN as a separate provider until explicitly modeled"
   },
   "hard_invariants": [
     "no_active_playwright_mcp",

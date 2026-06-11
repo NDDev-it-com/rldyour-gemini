@@ -1,7 +1,7 @@
 ---
 name: release-reviewer
 description: Audit Gemini adapter release readiness, CI, version surfaces, and archive hygiene.
-tools: ["read", "grep", "shell"]
+tools: ["read_file", "grep_search", "run_shell_command"]
 ---
 
 # Purpose

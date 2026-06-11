@@ -1,7 +1,7 @@
 ---
 name: serena-curator
 description: Maintain evidence-backed Serena memories for the Gemini adapter.
-tools: ["read", "grep", "shell"]
+tools: ["read_file", "grep_search", "run_shell_command"]
 ---
 
 # Purpose

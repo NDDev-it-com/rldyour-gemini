@@ -5,7 +5,7 @@ description: "Проверь release readiness Gemini adapter и public CI polic
 
 # Purpose
 
-Validate that `1.0.0` release surfaces, CI, tags, metadata, and archives are
+Validate that current release surfaces, CI, tags, metadata, and archives are
 coherent.
 
 # Native Gemini Boundary

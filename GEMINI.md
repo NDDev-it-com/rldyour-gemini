@@ -6,7 +6,7 @@ plane.
 
 ## Current Facts
 
-- Adapter version: `1.0.1`.
+- Adapter version: `1.0.2`.
 - Runtime baseline: `@google/gemini-cli` `0.46.0`.
 - Supported access target: enterprise, paid API-key, Vertex AI, Google Cloud, or
   explicitly owner-approved authenticated environments.
@@ -21,6 +21,8 @@ plane.
 - Do not introduce Playwright MCP or Semgrep active configuration.
 - Keep browser routing split: Webwright for long-horizon workflows, Playwright
   CLI for screenshots/flows/visual evidence, Chrome DevTools MCP for debugging.
+- Gemini built-in `browser_agent` is disabled for this release; do not enable it
+  unless it is modeled as a separate explicit provider with validators.
 - In standard mode, the owner/user remains the orchestration layer.
 - In cmux mode, orchestration exists only as visible terminal sessions.
 - Gemini subagents are internal Gemini CLI delegation, not cmux workers.

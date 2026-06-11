@@ -1,7 +1,7 @@
 ---
 name: security-reviewer
 description: Inspect Gemini hooks, MCP env handling, auth docs, workflows, and policy files for security risks.
-tools: ["read", "grep", "shell"]
+tools: ["read_file", "grep_search", "run_shell_command"]
 ---
 
 # Purpose
