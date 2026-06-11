@@ -1,6 +1,6 @@
 ---
 name: cmux-worker
-description: "Operate as a visible cmux Gemini worker terminal. RU: cmux worker для Gemini."
+description: "Работай как видимый cmux worker terminal для Gemini. EN: visible cmux Gemini worker terminal."
 ---
 
 # Purpose

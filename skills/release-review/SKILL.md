@@ -1,6 +1,6 @@
 ---
 name: release-review
-description: "Check Gemini adapter release readiness and public CI policy. RU: release review."
+description: "Проверь release readiness Gemini adapter и public CI policy. EN: release review."
 ---
 
 # Purpose
@@ -43,4 +43,3 @@ All local validators, pytest, and release/archive hygiene checks pass.
 # Failure Reporting
 
 State exact non-green gates and whether they are blockers or `NOT_PROVEN`.
-

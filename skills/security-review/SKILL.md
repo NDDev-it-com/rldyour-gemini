@@ -1,6 +1,6 @@
 ---
 name: security-review
-description: "Review Gemini adapter security posture, hooks, MCP, and secrets. RU: security review."
+description: "Проверь безопасность Gemini adapter: hooks, MCP, secrets, auth. EN: security review."
 ---
 
 # Purpose
@@ -43,4 +43,3 @@ Security review plus relevant validators and tests.
 # Failure Reporting
 
 Order findings by severity and include exact fix guidance.
-

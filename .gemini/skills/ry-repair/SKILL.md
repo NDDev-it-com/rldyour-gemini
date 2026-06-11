@@ -1,6 +1,6 @@
 ---
 name: ry-repair
-description: "Run rldyour repair for Gemini CLI configuration. RU: ремонт Gemini CLI adapter."
+description: "Запусти rldyour repair для Gemini CLI configuration. EN: repair Gemini CLI adapter."
 ---
 
 # Purpose
@@ -48,4 +48,3 @@ validators, background orchestrators, or unbounded hooks.
 # Failure Reporting
 
 Lead with blockers, affected files, and the next acceptance command.
-

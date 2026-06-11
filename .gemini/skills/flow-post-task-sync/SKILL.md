@@ -1,6 +1,6 @@
 ---
 name: flow-post-task-sync
-description: "Finalize Gemini adapter work with docs, Serena memories, checks, and release evidence. RU: финальная синхронизация."
+description: "Сделай финальную синхронизацию Gemini adapter: docs, Serena memories, checks, release evidence. EN: post-task sync."
 ---
 
 # Purpose
@@ -42,4 +42,3 @@ Memory schema and semantic validators plus scope-specific Gemini validators.
 # Failure Reporting
 
 State remaining blockers and exact commands that still fail.
-

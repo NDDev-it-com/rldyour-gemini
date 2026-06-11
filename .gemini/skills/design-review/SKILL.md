@@ -1,6 +1,6 @@
 ---
 name: design-review
-description: "Review design implementation with visual evidence and dynamic masks. RU: дизайн/visual review."
+description: "Проведи дизайн/visual review с evidence и dynamic masks. EN: review design implementation."
 ---
 
 # Purpose
@@ -44,4 +44,3 @@ Do not approve visual changes without evidence artifacts.
 # Failure Reporting
 
 Report each mismatch with source, viewport, severity, and evidence path.
-

@@ -1,6 +1,6 @@
 ---
 name: serena-memory-sync
-description: "Maintain fact-only Serena memories for Gemini adapter. RU: Serena memory sync."
+description: "Синхронизируй fact-only Serena memories для Gemini adapter. EN: Serena memory sync."
 ---
 
 # Purpose
@@ -42,4 +42,3 @@ Do not store chat logs, speculation, secrets, tokens, or raw credentials.
 # Failure Reporting
 
 List memory files needing more evidence or cleanup.
-

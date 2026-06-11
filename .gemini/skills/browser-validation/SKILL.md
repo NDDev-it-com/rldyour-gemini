@@ -1,6 +1,6 @@
 ---
 name: browser-validation
-description: "Validate browser behavior with Webwright, Playwright CLI, and Chrome DevTools MCP. RU: browser/UI проверка."
+description: "Проверь browser/UI поведение через Webwright, Playwright CLI и Chrome DevTools MCP. EN: validate browser behavior."
 ---
 
 # Purpose
@@ -43,4 +43,3 @@ Do not activate Playwright MCP or treat Webwright as MCP.
 # Failure Reporting
 
 Separate proven defects from `NOT_PROVEN` provider or auth gaps.
-
