@@ -1,5 +1,5 @@
 name = "rldyour-git-safety"
-version = "1.0.0"
+version = "1.0.1"
 scope = "gemini-adapter"
 
 [rules]
@@ -8,4 +8,3 @@ mirror_push = "block"
 branch_delete = "ask_user"
 git_clean_fdx = "block"
 system_install = "ask_user"
-

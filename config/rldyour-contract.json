@@ -3,7 +3,7 @@
   "adapter": {
     "id": "gemini",
     "name": "rldyour-gemini",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "runtime": "gemini-cli",
     "runtime_package": "@google/gemini-cli",
     "runtime_version": "0.46.0",
@@ -51,4 +51,3 @@
     "cmux_orchestrator_mode_requires_visible_terminal_sessions"
   ]
 }
-

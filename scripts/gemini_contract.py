@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 RUNTIME_VERSION = "0.46.0"
 RUNTIME_PACKAGE = "@google/gemini-cli"
 EXPECTED_MCP = [
@@ -79,7 +79,7 @@ def version_file() -> str:
 
 
 def validate_version_surfaces() -> None:
-    require(version_file() == VERSION, "VERSION must be 1.0.0")
+    require(version_file() == VERSION, f"VERSION must be {VERSION}")
     pyproject = load_toml(ROOT / "pyproject.toml")
     require(pyproject["project"]["version"] == VERSION, "pyproject version must match VERSION")
     manifest = load_json(ROOT / "gemini-extension.json")
@@ -144,7 +144,7 @@ def validate_manifest() -> None:
     manifest = load_json(ROOT / "gemini-extension.json")
     require(manifest["name"] == "rldyour-gemini", "extension name must be rldyour-gemini")
     require(re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", manifest["name"]) is not None, "extension name must be lowercase dash-separated")
-    require(manifest["version"] == VERSION, "extension version must be 1.0.0")
+    require(manifest["version"] == VERSION, f"extension version must be {VERSION}")
     require(manifest["contextFileName"] == "GEMINI.md", "contextFileName must be GEMINI.md")
     require("mcpServers" in manifest, "extension manifest must define mcpServers")
     require("excludeTools" in manifest and manifest["excludeTools"], "extension manifest must define excludeTools")
@@ -295,7 +295,7 @@ def validate_serena_memories() -> None:
         text = read_text(path)
         for section in MEMORY_SECTIONS:
             require(section in text, f"{path}: missing {section}")
-        require("2026-06-11" in text, f"{path}: Last Verified date required")
+        require(re.search(r"## Last Verified\s+\d{4}-\d{2}-\d{2}", text) is not None, f"{path}: Last Verified date required")
         require("Evidence" in text and "- `" in text, f"{path}: path evidence required")
 
 

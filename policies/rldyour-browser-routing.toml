@@ -1,5 +1,5 @@
 name = "rldyour-browser-routing"
-version = "1.0.0"
+version = "1.0.1"
 scope = "gemini-adapter"
 
 [providers]
@@ -10,4 +10,3 @@ chrome_devtools_mcp = "console, network, performance, Lighthouse, memory, live C
 [forbidden]
 playwright_mcp = true
 webwright_mcp = true
-

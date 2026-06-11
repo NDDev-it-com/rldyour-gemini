@@ -9,7 +9,7 @@ Record Gemini CLI access risk from the Antigravity transition.
 - Consumer OAuth availability after `2026-06-18` is `NOT_PROVEN`.
 - Supported targets are enterprise, paid API-key, Vertex AI, Google Cloud, and
   owner-approved authenticated environments.
-- Antigravity CLI is out of scope for adapter `1.0.0`.
+- Antigravity CLI is out of scope for adapter `1.0.1`.
 
 ## Evidence
 
@@ -24,4 +24,4 @@ Record Gemini CLI access risk from the Antigravity transition.
 
 ## Last Verified
 
-2026-06-11
+2026-06-12
