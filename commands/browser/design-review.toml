@@ -1,0 +1,15 @@
+name = "browser:design-review"
+description = "RU: визуальная/design проверка. EN: visual and design review with screenshots, masks, and deviation reporting."
+prompt = """
+Review visual/design implementation.
+
+Required evidence:
+- Expected source path, URL, Figma export, or reference image.
+- Actual screenshot paths for desktop and mobile viewports.
+- Dynamic-region masks and threshold policy.
+- Pixel, layout, typography, color/token, accessibility, DOM/ARIA, and false-positive notes.
+- Provider used: Playwright CLI, Chrome DevTools MCP, or Webwright.
+
+User args: {{args}}
+"""
+

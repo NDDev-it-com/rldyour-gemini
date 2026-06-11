@@ -1,0 +1,22 @@
+{
+  "required_status_checks": {
+    "strict": true,
+    "contexts": [
+      "Validate",
+      "Pytest",
+      "Actionlint",
+      "CodeQL",
+      "Secret scan",
+      "Dependency check",
+      "Scorecard"
+    ]
+  },
+  "enforce_admins": false,
+  "required_pull_request_reviews": {
+    "required_approving_review_count": 1
+  },
+  "restrictions": null,
+  "allow_force_pushes": false,
+  "allow_deletions": false
+}
+

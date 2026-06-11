@@ -1,0 +1,17 @@
+# Browser Provider Routing
+
+Use the shared rldyour provider model:
+
+- Webwright: high-level long-horizon web workflows, reusable scripts,
+  screenshots/logs/evidence, and final-script reproduction.
+- Playwright CLI + Skills: deterministic UI automation, screenshots, snapshots,
+  traces, responsive matrices, and visual evidence.
+- Chrome DevTools MCP: console, network, performance, Lighthouse, memory, heap,
+  and live Chrome debugging.
+
+Forbidden current state:
+
+- Active Playwright MCP.
+- Webwright as MCP.
+- Semgrep as an active MCP or provider.
+

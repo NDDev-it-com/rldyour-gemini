@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "adapter": {
+    "id": "gemini",
+    "name": "rldyour-gemini",
+    "version": "1.0.0",
+    "runtime": "gemini-cli",
+    "runtime_package": "@google/gemini-cli",
+    "runtime_version": "0.46.0",
+    "license": "AGPL-3.0-or-later"
+  },
+  "native_surfaces": [
+    "gemini_context",
+    "gemini_settings_json",
+    "gemini_extension_manifest",
+    "gemini_commands_toml",
+    "gemini_skills",
+    "gemini_subagents",
+    "gemini_hooks",
+    "gemini_policies",
+    "gemini_mcp_servers",
+    "gemini_headless_prompt"
+  ],
+  "system_config_targets": [
+    "${GEMINI_HOME:-$HOME/.gemini}",
+    "${GEMINI_HOME:-$HOME/.gemini}/extensions/rldyour-gemini"
+  ],
+  "mcp_servers": [
+    "serena",
+    "chrome-devtools",
+    "sequential-thinking",
+    "shadcn",
+    "dart-flutter",
+    "context7",
+    "github",
+    "deepwiki",
+    "grep",
+    "figma",
+    "openai-docs"
+  ],
+  "browser_provider_model": {
+    "webwright": "high-level long-horizon browser workflows",
+    "playwright-cli": "low-level screenshots, snapshots, traces, and visual evidence",
+    "chrome-devtools-mcp": "console, network, performance, Lighthouse, memory, live debugging"
+  },
+  "hard_invariants": [
+    "no_active_playwright_mcp",
+    "no_active_semgrep",
+    "gemini_subagents_are_not_cmux_orchestration",
+    "headless_prompt_is_smoke_doctor_ci_only",
+    "cmux_orchestrator_mode_requires_visible_terminal_sessions"
+  ]
+}
+

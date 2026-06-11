@@ -1,0 +1,10 @@
+name: rldyour-gemini
+language: python
+ignored_paths:
+  - .git
+  - .pytest_cache
+  - .ruff_cache
+  - .serena/cache
+  - __pycache__
+  - dist
+

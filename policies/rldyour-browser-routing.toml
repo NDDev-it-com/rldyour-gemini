@@ -1,0 +1,13 @@
+name = "rldyour-browser-routing"
+version = "1.0.0"
+scope = "gemini-adapter"
+
+[providers]
+webwright = "high-level long-horizon web workflows and reusable scripts"
+playwright_cli = "low-level screenshots, snapshots, traces, and visual evidence"
+chrome_devtools_mcp = "console, network, performance, Lighthouse, memory, live Chrome debugging"
+
+[forbidden]
+playwright_mcp = true
+webwright_mcp = true
+

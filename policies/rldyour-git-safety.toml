@@ -1,0 +1,11 @@
+name = "rldyour-git-safety"
+version = "1.0.0"
+scope = "gemini-adapter"
+
+[rules]
+force_push = "block"
+mirror_push = "block"
+branch_delete = "ask_user"
+git_clean_fdx = "block"
+system_install = "ask_user"
+

@@ -1,0 +1,16 @@
+name = "security:review"
+description = "RU: security review Gemini adapter. EN: security review for Gemini config, hooks, MCP, and release surfaces."
+prompt = """
+Run a defensive security review of the requested Gemini adapter scope.
+
+Focus:
+- Secrets and authentication material.
+- Destructive shell/git operations and hook behavior.
+- MCP env handling and remote server boundaries.
+- Gemini approval mode and policy extension behavior.
+- Release workflow permissions and supply-chain metadata.
+
+Report findings first, ordered by severity, with file references and exact remediation.
+
+User args: {{args}}
+"""

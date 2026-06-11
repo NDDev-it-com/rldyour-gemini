@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "current_claims": {
+    "adapter_version": "1.0.0",
+    "runtime_version": "0.46.0",
+    "mcp_server_count": 11,
+    "playwright_mcp_active": false,
+    "semgrep_active": false,
+    "antigravity_adapter_in_scope": false
+  },
+  "historical_sections_allowed": true
+}
+

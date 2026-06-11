@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "runtime": "gemini-cli",
+  "npm_package": "@google/gemini-cli",
+  "target_runtime_version": "0.46.0",
+  "target_channel": "stable/npm-latest",
+  "verified_on": "2026-06-11",
+  "source_of_truth_priority": [
+    "npm view @google/gemini-cli version",
+    "https://github.com/google-gemini/gemini-cli/releases/tag/v0.46.0",
+    "https://github.com/google-gemini/gemini-cli"
+  ],
+  "installed_runtime_smoke": {
+    "command": "gemini -p 'Return exactly READY.' --output-format json",
+    "required_for_local_release": false,
+    "auth_required": true
+  },
+  "antigravity_transition": {
+    "date": "2026-06-18",
+    "consumer_oauth_long_term_availability": "NOT_PROVEN",
+    "supported_targets": [
+      "enterprise",
+      "paid-api-key",
+      "vertex-ai",
+      "google-cloud",
+      "owner-approved-authenticated-environment"
+    ]
+  }
+}
+

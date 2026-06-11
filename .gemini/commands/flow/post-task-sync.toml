@@ -1,0 +1,15 @@
+name = "flow:post-task-sync"
+description = "RU: финальная синхронизация после задачи. EN: post-task sync for docs, memories, git, and release evidence."
+prompt = """
+Perform post-task sync for completed Gemini adapter work.
+
+Required behavior:
+- Sync Serena memories only from verified file/config/test facts.
+- Update durable docs if verified project facts changed.
+- Run scope-matching validators.
+- Do not commit secrets, runtime markers, browser artifacts, or caches.
+- Report remaining blockers and exact commands.
+
+User args: {{args}}
+"""
+

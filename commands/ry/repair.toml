@@ -1,0 +1,17 @@
+name = "ry:repair"
+description = "RU: ремонт и синхронизация rldyour Gemini adapter. EN: rldyour repair and sync for the Gemini adapter."
+prompt = """
+Run rldyour repair for this repository.
+
+Required behavior:
+- Read GEMINI.md, AGENTS.md, config/rldyour-contract.json, and Serena memories first.
+- Validate native Gemini surfaces before proposing release changes.
+- Use positive active inventories and generic retired-tool residue checks.
+- Do not add new tool-specific validate_no_<tool>.py tombstone validators.
+- Do not create background, headless, daemon, or detached orchestrator processes.
+- In cmux mode, act only as the visible terminal role assigned by the owner.
+- Report exact blockers, NOT_PROVEN gaps, and acceptance commands.
+
+User args: {{args}}
+"""
+

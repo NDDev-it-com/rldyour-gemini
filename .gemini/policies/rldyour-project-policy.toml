@@ -1,0 +1,14 @@
+name = "rldyour-project-policy"
+version = "1.0.0"
+scope = "gemini-adapter"
+
+[execution]
+standard_mode = "owner is the orchestration layer"
+cmux_mode = "visible terminal sessions only"
+headless_prompt = "smoke, doctor, and CI only"
+
+[forbidden]
+background_orchestrator = true
+headless_orchestrator = true
+daemon_orchestrator = true
+worker_as_background_job = true

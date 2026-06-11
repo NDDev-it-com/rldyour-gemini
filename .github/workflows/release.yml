@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.13"
+      - name: Validate release
+        run: scripts/validate_release.sh
+      - name: Build source archive
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          git archive --format=zip --prefix=rldyour-gemini/ -o dist/rldyour-gemini-source.zip HEAD
+          sha256sum dist/rldyour-gemini-source.zip > dist/SHA256SUMS
+          printf '{"name":"rldyour-gemini","version":"%s","sbom":"source-only"}\n' "$(cat VERSION)" > dist/sbom.spdx.json
+      - name: Attest source archive
+        uses: actions/attest@59d89421af93a897026c735860bf21b6eb4f7b26 # v4.1.0
+        with:
+          subject-path: dist/rldyour-gemini-source.zip
+      - name: Attest SBOM
+        uses: actions/attest@59d89421af93a897026c735860bf21b6eb4f7b26 # v4.1.0
+        with:
+          subject-path: dist/sbom.spdx.json
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="${GITHUB_REF_NAME}"
+          gh release create "$tag" dist/rldyour-gemini-source.zip dist/SHA256SUMS dist/sbom.spdx.json \
+            --title "$tag" \
+            --notes-file CHANGELOG.md \
+            --verify-tag
+

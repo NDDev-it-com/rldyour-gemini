@@ -1,0 +1,60 @@
+[project]
+name = "rldyour-gemini"
+version = "1.0.0"
+description = "rldyour AI CLI configuration for Gemini CLI: native extensions, GEMINI.md context, commands, skills, subagents, hooks, MCP, browser-provider routing, Serena memory, and runtime validation."
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE"]
+authors = [
+  { name = "Danil Silantyev", email = "rldyourmnd@users.noreply.github.com" },
+]
+maintainers = [
+  { name = "Danil Silantyev", email = "rldyourmnd@users.noreply.github.com" },
+]
+keywords = ["gemini", "gemini-cli", "google", "mcp", "agent-skills", "subagents", "hooks", "browser-automation"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+  "Topic :: Software Development",
+  "Topic :: Software Development :: Build Tools",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.13",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: MacOS",
+]
+
+[project.urls]
+Homepage = "https://github.com/NDDev-it-com/rldyour-gemini"
+Repository = "https://github.com/NDDev-it-com/rldyour-gemini"
+Issues = "https://github.com/NDDev-it-com/rldyour-gemini/issues"
+Changelog = "https://github.com/NDDev-it-com/rldyour-gemini/blob/main/CHANGELOG.md"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+  "--strict-markers",
+  "--strict-config",
+  "--cov=scripts",
+  "--cov-report=term-missing",
+  "--cov-report=xml:coverage.xml",
+  "--cov-fail-under=75",
+  "--junitxml=pytest.xml",
+]
+
+[tool.coverage.run]
+branch = true
+parallel = false
+omit = [
+  "scripts/scan_text_security.py",
+  "scripts/validate_*.py",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+exclude_also = [
+  "if __name__ == .__main__.:",
+  "raise SystemExit\\(main\\(\\)\\)",
+]

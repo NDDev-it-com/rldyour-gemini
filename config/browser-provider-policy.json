@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "providers": {
+    "webwright": {
+      "kind": "high-level-browser-workflow",
+      "mcp": false
+    },
+    "playwright-cli": {
+      "kind": "low-level-browser-automation",
+      "mcp": false,
+      "version": "0.1.14"
+    },
+    "chrome-devtools-mcp": {
+      "kind": "devtools-debugging",
+      "mcp": true,
+      "version": "1.2.0"
+    }
+  },
+  "routing": {
+    "long_horizon_web_task": "webwright",
+    "screenshots_snapshots_traces": "playwright-cli",
+    "console_network_performance_memory_lighthouse": "chrome-devtools-mcp"
+  },
+  "forbidden_active_providers": [
+    "playwright-mcp",
+    "@playwright/mcp",
+    "semgrep",
+    "semgrep-mcp"
+  ]
+}
+

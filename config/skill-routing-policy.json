@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "skills": {
+    "ry-repair": "repair and sync",
+    "flow-post-task-sync": "post-task finalization",
+    "browser-validation": "browser evidence",
+    "design-review": "visual and design evidence",
+    "security-review": "security review",
+    "release-review": "release readiness",
+    "serena-memory-sync": "Serena memory maintenance",
+    "cmux-worker": "visible cmux worker role"
+  },
+  "forbidden_terms": [
+    "Claude slash-command runtime",
+    "Codex plugin manifest runtime",
+    "OpenCode command JSON runtime"
+  ]
+}
+

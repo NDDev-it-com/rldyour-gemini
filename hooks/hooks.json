@@ -1,0 +1,29 @@
+{
+  "hooks": [
+    {
+      "event": "SessionStart",
+      "command": ".gemini/hooks/session_start_context.sh",
+      "timeout_seconds": 5,
+      "description": "Print project policy summary without mutation."
+    },
+    {
+      "event": "BeforeTool",
+      "command": ".gemini/hooks/before_tool_policy.sh",
+      "timeout_seconds": 5,
+      "description": "Block destructive shell/git/file operations according to adapter policy."
+    },
+    {
+      "event": "AfterAgent",
+      "command": ".gemini/hooks/after_agent_post_task_sync.sh",
+      "timeout_seconds": 10,
+      "description": "Run bounded post-task state checks without recursive loops."
+    },
+    {
+      "event": "SessionEnd",
+      "command": ".gemini/hooks/session_end_cleanup.sh",
+      "timeout_seconds": 10,
+      "description": "Report runtime-marker cleanup state without source mutation."
+    }
+  ]
+}
+

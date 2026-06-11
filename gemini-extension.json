@@ -1,0 +1,84 @@
+{
+  "name": "rldyour-gemini",
+  "version": "1.0.0",
+  "description": "rldyour Gemini CLI configuration: commands, skills, subagents, hooks, MCP, browser routing, Serena memory, and release workflows.",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "serena": {
+      "command": "uvx",
+      "args": ["--from", "serena-agent==1.5.3", "--python", "3.13", "--prerelease", "allow", "serena", "start-mcp-server", "--project-from-cwd", "--context=gemini", "--enable-web-dashboard", "False", "--open-web-dashboard", "False"],
+      "startup_timeout_sec": 90,
+      "tool_timeout_sec": 180
+    },
+    "chrome-devtools": {
+      "command": "bunx",
+      "args": ["chrome-devtools-mcp@1.2.0", "--headless", "--isolated", "--no-usage-statistics", "--no-performance-crux"],
+      "startup_timeout_sec": 45,
+      "tool_timeout_sec": 120
+    },
+    "sequential-thinking": {
+      "command": "bunx",
+      "args": ["@modelcontextprotocol/server-sequential-thinking@2025.12.18"],
+      "startup_timeout_sec": 30,
+      "tool_timeout_sec": 120
+    },
+    "shadcn": {
+      "command": "bunx",
+      "args": ["shadcn@4.11.0", "mcp"],
+      "startup_timeout_sec": 30,
+      "tool_timeout_sec": 120
+    },
+    "dart-flutter": {
+      "command": "dart",
+      "args": ["mcp-server"],
+      "startup_timeout_sec": 30,
+      "tool_timeout_sec": 120
+    },
+    "context7": {
+      "command": "bunx",
+      "args": ["@upstash/context7-mcp@3.1.0"],
+      "env": {"CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"},
+      "startup_timeout_sec": 30,
+      "tool_timeout_sec": 120
+    },
+    "github": {
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {"Authorization": "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}"},
+      "toolsets": ["context", "repos", "issues", "pull_requests", "users"],
+      "startup_timeout_sec": 30,
+      "tool_timeout_sec": 120
+    },
+    "deepwiki": {
+      "url": "https://mcp.deepwiki.com/mcp",
+      "startup_timeout_sec": 30,
+      "tool_timeout_sec": 120
+    },
+    "grep": {
+      "url": "https://mcp.grep.app",
+      "startup_timeout_sec": 30,
+      "tool_timeout_sec": 120
+    },
+    "figma": {
+      "url": "http://127.0.0.1:3845/mcp",
+      "startup_timeout_sec": 30,
+      "tool_timeout_sec": 120
+    },
+    "openai-docs": {
+      "url": "https://mcp.openai.com",
+      "startup_timeout_sec": 30,
+      "tool_timeout_sec": 120
+    }
+  },
+  "excludeTools": [
+    "run_shell_command(rm -rf)",
+    "run_shell_command(git push --force)",
+    "run_shell_command(git push --mirror)",
+    "run_shell_command(git branch -D)",
+    "run_shell_command(git push origin --delete)",
+    "run_shell_command(git clean -fdx)"
+  ],
+  "plan": {
+    "directory": ".gemini/plans"
+  }
+}
+

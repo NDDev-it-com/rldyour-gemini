@@ -1,0 +1,15 @@
+name = "serena:sync"
+description = "RU: синхронизация Serena memories. EN: synchronize fact-only Serena memories."
+prompt = """
+Synchronize Serena memories for this Gemini adapter.
+
+Rules:
+- Store durable verified facts only.
+- Every current fact needs file/config/test/upstream evidence.
+- Do not store chat logs, speculation, credentials, or raw tokens.
+- Mark unavailable claims NOT_PROVEN.
+- Run memory schema and semantic validators after edits.
+
+User args: {{args}}
+"""
+

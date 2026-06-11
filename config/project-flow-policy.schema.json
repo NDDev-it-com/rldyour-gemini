@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "rldyour Gemini project flow policy",
+  "type": "object",
+  "properties": {
+    "execution_mode": {
+      "enum": ["standard", "orchestrator"]
+    },
+    "cmux": {
+      "type": "object",
+      "properties": {
+        "visible_terminal_only": {"const": true}
+      },
+      "required": ["visible_terminal_only"]
+    },
+    "gemini": {
+      "type": "object",
+      "properties": {
+        "headless_prompt_scope": {"enum": ["smoke-doctor-ci-only"]},
+        "subagents_are_cmux_workers": {"const": false}
+      },
+      "required": ["headless_prompt_scope", "subagents_are_cmux_workers"]
+    }
+  },
+  "required": ["execution_mode", "cmux", "gemini"]
+}
+

@@ -1,0 +1,17 @@
+name = "release:check"
+description = "RU: release readiness проверка Gemini adapter. EN: release readiness check for the Gemini adapter."
+prompt = """
+Check release readiness for this Gemini adapter.
+
+Required checks:
+- Adapter version surfaces match VERSION.
+- Gemini CLI baseline is @google/gemini-cli 0.46.0 unless live stable evidence proves a newer target.
+- Native Gemini surfaces validate.
+- MCP inventory is exactly the 11 active servers.
+- Antigravity transition policy is documented.
+- No Playwright MCP, Semgrep, secrets, caches, runtime markers, or generated junk are active.
+- CI workflows use public/free GitHub-hosted runners and full SHA action pins.
+
+User args: {{args}}
+"""
+

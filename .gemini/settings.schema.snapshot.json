@@ -1,0 +1,13 @@
+{
+  "schema": "https://geminicli.com/schemas/settings.schema.json",
+  "snapshot_verified_on": "2026-06-11",
+  "purpose": "Repository snapshot marker used by validators; live schema fetch is a separate network gate.",
+  "required_repository_keys": [
+    "context",
+    "general",
+    "ui",
+    "privacy",
+    "hooksConfig",
+    "mcpServers"
+  ]
+}

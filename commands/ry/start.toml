@@ -1,0 +1,15 @@
+name = "ry:start"
+description = "RU: полный жизненный цикл задачи в Gemini CLI. EN: full rldyour task lifecycle in Gemini CLI."
+prompt = """
+Start a bounded rldyour task in this Gemini adapter.
+
+Required behavior:
+- Establish source-of-truth files and current git state.
+- Prefer Gemini-native surfaces and repository validators.
+- Keep artifacts English and owner-facing conversation Russian when applicable.
+- Preserve browser routing, MCP inventory, and cmux visible-terminal boundaries.
+- Run scope-matching validation and report exact results.
+
+User args: {{args}}
+"""
+

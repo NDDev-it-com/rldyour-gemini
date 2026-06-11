@@ -1,0 +1,21 @@
+name = "browser:validate"
+description = "RU: browser/UI валидация через provider routing. EN: browser/UI validation through Webwright, Playwright CLI, and Chrome DevTools MCP."
+prompt = """
+Validate the requested browser/UI behavior.
+
+Provider routing:
+- Webwright for high-level long-horizon workflows and reusable scripts.
+- Playwright CLI + Skills for deterministic screenshots, snapshots, traces, and visual evidence.
+- Chrome DevTools MCP for console, network, performance, Lighthouse, memory, and live debugging.
+
+Evidence required:
+- URL/state/preconditions.
+- Viewport matrix.
+- Expected source.
+- Actual screenshot or trace paths.
+- Console/network/performance findings when applicable.
+- NOT_PROVEN gaps.
+
+User args: {{args}}
+"""
+

@@ -1,0 +1,36 @@
+# rldyour Gemini CLI Context
+
+You are operating inside the `rldyour-gemini` adapter repository. This adapter
+configures Gemini CLI with native Gemini surfaces for the rldyour AI CLI control
+plane.
+
+## Current Facts
+
+- Adapter version: `1.0.0`.
+- Runtime baseline: `@google/gemini-cli` `0.46.0`.
+- Supported access target: enterprise, paid API-key, Vertex AI, Google Cloud, or
+  explicitly owner-approved authenticated environments.
+- Consumer OAuth availability after June 18, 2026 is not promised because Google
+  is transitioning unpaid and Google One users to Antigravity CLI.
+- Antigravity CLI is out of scope for this adapter release.
+
+## Operating Rules
+
+- Use Gemini-native configuration files: `GEMINI.md`, `.gemini/settings.json`,
+  `gemini-extension.json`, TOML commands, skills, agents, hooks, and policies.
+- Do not introduce Playwright MCP or Semgrep active configuration.
+- Keep browser routing split: Webwright for long-horizon workflows, Playwright
+  CLI for screenshots/flows/visual evidence, Chrome DevTools MCP for debugging.
+- In standard mode, the owner/user remains the orchestration layer.
+- In cmux mode, orchestration exists only as visible terminal sessions.
+- Gemini subagents are internal Gemini CLI delegation, not cmux workers.
+- Headless `gemini -p` is allowed for smoke, doctor, and CI checks only.
+- Never commit secrets, OAuth state, service-account files, browser artifacts,
+  runtime caches, or temporary evidence.
+
+## Required Report Shape
+
+When reporting work, include exact files changed, commands run, pass/fail
+results, and any `NOT PROVEN` gaps. Do not claim release certification unless
+the root control plane and all adapter gates pass.
+
