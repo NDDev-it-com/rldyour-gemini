@@ -1,5 +1,5 @@
 rldyour-gemini
-Copyright (C) 2026 Danil Silantyev, CEO NDDev
+Copyright (C) 2026 Danil Silantyev (github:rldyourmnd), CEO NDDev
 
 This product is distributed under the GNU Affero General Public License,
 version 3 or later. It contains Gemini CLI configuration, validation scripts,
@@ -8,3 +8,5 @@ and documentation for the rldyour AI CLI control-plane family.
 Gemini CLI, Google, and related marks are owned by their respective owners.
 This repository is not endorsed by Google.
 
+Any additional licensing grants separately agreed by the copyright holder remain
+separate from this AGPL-3.0-or-later public distribution.
