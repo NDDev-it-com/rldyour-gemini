@@ -1,6 +1,6 @@
 {
   "name": "rldyour-gemini",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "rldyour Gemini CLI configuration: commands, skills, subagents, hooks, MCP, browser routing, Serena memory, and release workflows.",
   "contextFileName": "GEMINI.md",
   "mcpServers": {
@@ -81,4 +81,3 @@
     "directory": ".gemini/plans"
   }
 }
-

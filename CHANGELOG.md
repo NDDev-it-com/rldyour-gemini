@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-06-12
+
+### Changed
+
+- Updated GitHub Actions dependencies: `actions/checkout` `6.0.3` and
+  `github/codeql-action` `4.36.2`.
+
 
 ## [1.0.0] - 2026-06-11
 
