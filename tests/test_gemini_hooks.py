@@ -13,3 +13,6 @@ def test_hooks_validate():
 def test_subagents_validate():
     gemini_contract.validate_subagents()
 
+
+def test_projection_parity_validates():
+    gemini_contract.validate_projection_parity()

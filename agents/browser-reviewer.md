@@ -1,7 +1,7 @@
 ---
 name: browser-reviewer
 description: Review browser/UI behavior through provider-routed evidence.
-tools: ["read", "grep", "shell", "mcp:chrome-devtools"]
+tools: ["read_file", "grep_search", "run_shell_command", "mcp_chrome-devtools_*"]
 ---
 
 # Purpose

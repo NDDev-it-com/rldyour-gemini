@@ -1,5 +1,5 @@
 name = "rldyour-browser-routing"
-version = "1.0.1"
+version = "1.0.2"
 scope = "gemini-adapter"
 
 [providers]

@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 RUNTIME_VERSION = "0.46.0"
 RUNTIME_PACKAGE = "@google/gemini-cli"
 EXPECTED_MCP = [
@@ -28,6 +28,21 @@ EXPECTED_MCP = [
     "figma",
     "openai-docs",
 ]
+NATIVE_MCP_KEYS = {
+    "command",
+    "args",
+    "env",
+    "cwd",
+    "url",
+    "httpUrl",
+    "headers",
+    "timeout",
+    "description",
+    "includeTools",
+    "excludeTools",
+}
+SECRET_ENV_RE = re.compile(r"\$\{([A-Z0-9_]*(?:TOKEN|KEY|SECRET|PASSWORD)[A-Z0-9_]*)\}")
+PROJECTION_FOLDERS = ["commands", "skills", "agents", "hooks", "policies"]
 RETIRED_PATTERNS = [
     re.compile(r"@playwright/mcp", re.IGNORECASE),
     re.compile(r"\bplaywright[-_ ]mcp\b", re.IGNORECASE),
@@ -122,13 +137,17 @@ def validate_mcp_map(mcp: dict[str, Any], source: str) -> None:
         require("_" not in alias, f"{source}: MCP alias must not contain underscore: {alias}")
         require(alias not in {"playwright", "playwright-mcp", "semgrep", "semgrep-mcp"}, f"{source}: retired MCP alias active: {alias}")
         require(isinstance(spec, dict), f"{source}: MCP spec must be an object for {alias}")
+        unsupported = sorted(set(spec) - NATIVE_MCP_KEYS)
+        require(not unsupported, f"{source}: unsupported Gemini MCP keys for {alias}: {unsupported}")
         require(spec.get("trust") is not True, f"{source}: trust=true is forbidden for {alias}")
+        if "timeout" in spec:
+            require(isinstance(spec["timeout"], int) and spec["timeout"] > 0, f"{source}: timeout must be positive milliseconds for {alias}")
         if "command" in spec:
             require(isinstance(spec["command"], str) and spec["command"], f"{source}: command must be a non-empty string for {alias}")
             require(isinstance(spec.get("args", []), list), f"{source}: args must be a list for {alias}")
             require(" " not in spec["command"], f"{source}: command must not shell-concatenate args for {alias}")
         else:
-            require("url" in spec, f"{source}: MCP spec needs command or url for {alias}")
+            require("url" in spec or "httpUrl" in spec, f"{source}: MCP spec needs command, url, or httpUrl for {alias}")
 
 
 def validate_mcp_inventory() -> None:
@@ -148,16 +167,74 @@ def validate_manifest() -> None:
     require(manifest["contextFileName"] == "GEMINI.md", "contextFileName must be GEMINI.md")
     require("mcpServers" in manifest, "extension manifest must define mcpServers")
     require("excludeTools" in manifest and manifest["excludeTools"], "extension manifest must define excludeTools")
+    validate_extension_secret_settings(manifest)
     validate_mcp_map(manifest["mcpServers"], "gemini-extension.json")
+
+
+def collect_secret_env_refs(value: Any) -> set[str]:
+    refs: set[str] = set()
+    if isinstance(value, str):
+        refs.update(SECRET_ENV_RE.findall(value))
+    elif isinstance(value, list):
+        for item in value:
+            refs.update(collect_secret_env_refs(item))
+    elif isinstance(value, dict):
+        for item in value.values():
+            refs.update(collect_secret_env_refs(item))
+    return refs
+
+
+def validate_extension_secret_settings(manifest: dict[str, Any] | None = None) -> None:
+    manifest = manifest or load_json(ROOT / "gemini-extension.json")
+    settings = manifest.get("settings")
+    require(isinstance(settings, list), "extension manifest must declare settings for secret env vars")
+    declared: dict[str, dict[str, Any]] = {}
+    for item in settings:
+        require(isinstance(item, dict), "extension settings entries must be objects")
+        env_var = item.get("envVar")
+        require(isinstance(env_var, str) and env_var, "extension settings entries must declare envVar")
+        declared[env_var] = item
+        if re.search(r"TOKEN|KEY|SECRET|PASSWORD", env_var):
+            require(item.get("sensitive") is True, f"extension setting {env_var} must be sensitive")
+
+    refs = collect_secret_env_refs(manifest.get("mcpServers", {}))
+    missing = sorted(refs - set(declared))
+    require(not missing, f"extension secret env refs must be declared in settings: {missing}")
 
 
 def validate_settings() -> None:
     settings = load_json(ROOT / ".gemini/settings.json")
     require(settings["context"]["fileName"] == "GEMINI.md", "settings context fileName must be GEMINI.md")
     require(settings["general"]["defaultApprovalMode"] == "default", "committed settings must not enable YOLO")
+    require(settings["general"]["checkpointing"]["enabled"] is True, "settings general.checkpointing.enabled must be true")
     require(settings["privacy"]["usageStatisticsEnabled"] is False, "usage statistics must be disabled in template")
     require(settings["hooksConfig"]["enabled"] is True, "hooks must be enabled")
+    validate_hook_config(settings.get("hooks"), ".gemini/settings.json hooks", project_settings=True)
     validate_mcp_map(settings["mcpServers"], ".gemini/settings.json")
+
+
+def validate_hook_config(config: Any, source: str, *, project_settings: bool) -> None:
+    require(isinstance(config, dict), f"{source}: hooks must be an event-keyed object")
+    expected = {"SessionStart", "BeforeTool", "AfterAgent", "SessionEnd"}
+    require(set(config) == expected, f"{source}: hook events must match {sorted(expected)}")
+    for event, definitions in config.items():
+        require(isinstance(definitions, list) and definitions, f"{source}: {event} must be a non-empty list")
+        for definition in definitions:
+            require(isinstance(definition, dict), f"{source}: {event} hook definition must be an object")
+            require(isinstance(definition.get("matcher"), str), f"{source}: {event} matcher is required")
+            hooks = definition.get("hooks")
+            require(isinstance(hooks, list) and hooks, f"{source}: {event} hooks array is required")
+            for hook in hooks:
+                require(isinstance(hook, dict), f"{source}: {event} hook entry must be an object")
+                require(hook.get("type") == "command", f"{source}: {event} hook type must be command")
+                command = hook.get("command")
+                require(isinstance(command, str) and command, f"{source}: {event} hook command is required")
+                if project_settings:
+                    require(command.startswith("$GEMINI_PROJECT_DIR/.gemini/hooks/"), f"{source}: {event} project hook command must use $GEMINI_PROJECT_DIR")
+                else:
+                    require(command.startswith("${extensionPath}/hooks/"), f"{source}: {event} extension hook command must use ${'{'}extensionPath{'}'}")
+                timeout = hook.get("timeout")
+                require(isinstance(timeout, int) and 0 < timeout <= 10000, f"{source}: {event} timeout must be bounded milliseconds")
 
 
 def command_files() -> list[Path]:
@@ -216,6 +293,17 @@ def validate_subagents() -> None:
         text = read_text(path)
         require(text.startswith("---\n"), f"{path}: agent frontmatter required")
         require("name:" in text and "description:" in text, f"{path}: name and description required")
+        frontmatter = text.split("---", 2)[1]
+        require('"read"' not in frontmatter and '"grep"' not in frontmatter and '"shell"' not in frontmatter, f"{path}: cross-tool shorthand is forbidden")
+        require("mcp:" not in frontmatter, f"{path}: MCP shorthand with colon is forbidden")
+        tools_match = re.search(r"tools:\s*\[(.*?)\]", frontmatter, re.DOTALL)
+        require(tools_match is not None, f"{path}: tools array required")
+        tools = [item.strip().strip("'\"") for item in tools_match.group(1).split(",") if item.strip()]
+        for tool in tools:
+            require(
+                tool in {"read_file", "grep_search", "run_shell_command"} or re.fullmatch(r"mcp_[A-Za-z0-9-]+_\*", tool),
+                f"{path}: non-native Gemini tool name {tool!r}",
+            )
         for heading in required:
             require(heading in text, f"{path}: missing heading {heading}")
         lowered = text.lower()
@@ -223,16 +311,47 @@ def validate_subagents() -> None:
 
 
 def validate_hooks() -> None:
-    hooks = load_json(ROOT / ".gemini/hooks/hooks.json")["hooks"]
-    events = {hook["event"] for hook in hooks}
-    require(events == {"SessionStart", "BeforeTool", "AfterAgent", "SessionEnd"}, "hook events must match required lifecycle")
-    for hook in hooks:
-        command = ROOT / hook["command"]
-        require(command.exists(), f"hook command missing: {hook['command']}")
-        require(hook.get("timeout_seconds", 0) > 0 and hook["timeout_seconds"] <= 10, f"{hook['event']}: hook timeout must be bounded")
-        text = read_text(command)
-        require("set -euo pipefail" in text, f"{command}: strict shell mode required")
-        require("while true" not in text and "for ((" not in text, f"{command}: unbounded loops forbidden")
+    hooks = load_json(ROOT / ".gemini/hooks/hooks.json")
+    validate_hook_config(hooks, ".gemini/hooks/hooks.json", project_settings=False)
+    source_hooks = load_json(ROOT / "hooks/hooks.json")
+    require(source_hooks == hooks, "source hooks and .gemini projection hooks must match")
+    for event, definitions in hooks.items():
+        for definition in definitions:
+            for hook in definition["hooks"]:
+                script = ROOT / "hooks" / Path(str(hook["command"])).name
+                require(script.exists(), f"hook command missing: {script.relative_to(ROOT)}")
+                text = read_text(script)
+                require("set -euo pipefail" in text, f"{script}: strict shell mode required")
+                require("while true" not in text and "for ((" not in text, f"{script}: unbounded loops forbidden")
+                validate_hook_script_json(script, event)
+
+
+def validate_hook_script_json(script: Path, event: str) -> None:
+    payload: dict[str, Any] = {
+        "session_id": "validation",
+        "cwd": str(ROOT),
+        "hook_event_name": event,
+        "timestamp": "2026-06-12T00:00:00Z",
+    }
+    if event == "BeforeTool":
+        payload.update({"tool_name": "run_shell_command", "tool_input": {"command": "git status --short"}})
+    proc = subprocess.run(
+        [str(script)],
+        cwd=ROOT,
+        input=json.dumps(payload),
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        timeout=5,
+        check=False,
+    )
+    require(proc.returncode == 0, f"{script.relative_to(ROOT)}: hook smoke failed: {proc.stderr.strip()}")
+    try:
+        decoded = json.loads(proc.stdout)
+    except json.JSONDecodeError as exc:
+        raise ValidationError(f"{script.relative_to(ROOT)}: stdout must be one JSON object: {exc}") from exc
+    require(isinstance(decoded, dict), f"{script.relative_to(ROOT)}: stdout JSON must be an object")
+    require(proc.stdout.strip().startswith("{") and proc.stdout.strip().endswith("}"), f"{script.relative_to(ROOT)}: stdout must contain only JSON")
 
 
 def validate_browser_routing() -> None:
@@ -241,13 +360,21 @@ def validate_browser_routing() -> None:
     require(providers["webwright"]["mcp"] is False, "Webwright must not be MCP")
     require(providers["playwright-cli"]["mcp"] is False, "Playwright CLI must not be MCP")
     require(providers["chrome-devtools-mcp"]["mcp"] is True, "Chrome DevTools MCP must remain active")
+    browser_agent = policy.get("gemini_builtin_browser_agent") or {}
+    require(browser_agent.get("enabled") is False, "Gemini built-in browser_agent must be disabled for this release")
+    require(
+        set(browser_agent.get("must_not_replace") or []) == {"webwright", "playwright-cli", "chrome-devtools-mcp"},
+        "Gemini browser_agent policy must preserve the canonical provider matrix",
+    )
     docs = "\n".join(read_text(path) for path in [
         ROOT / "README.md",
         ROOT / "references/browser-provider-routing.md",
+        ROOT / "references/gemini-surface-adoption.md",
         ROOT / ".gemini/skills/browser-validation/SKILL.md",
     ])
     for phrase in ["Webwright", "Playwright CLI", "Chrome DevTools MCP"]:
         require(phrase in docs, f"browser docs must mention {phrase}")
+    require("browser_agent" in docs and "disabled" in docs.lower(), "browser docs must record disabled Gemini browser_agent policy")
 
 
 def validate_native_boundaries() -> None:
@@ -278,6 +405,36 @@ def validate_antigravity_policy() -> None:
     require("NOT_PROVEN" in doc, "Antigravity transition doc must mark future adapter path NOT_PROVEN")
     require("Antigravity CLI is not in scope" in doc, "Antigravity out-of-scope statement required")
     require("enterprise" in doc.lower() and "api-key" in doc.lower() and "vertex" in doc.lower(), "supported access channels required")
+
+
+def validate_runtime_channel_policy() -> None:
+    baseline = load_json(ROOT / "config/gemini-baseline.json")
+    priority = baseline.get("source_of_truth_priority") or []
+    require(priority and priority[0] == "npm view @google/gemini-cli version", "npm latest must be primary Gemini stable source")
+    forbidden = set(baseline.get("forbidden_as_stable") or [])
+    required = {
+        "github-main-package-json-nightly",
+        "github-releases-latest-redirect-when-conflicting",
+        "preview-tag",
+        "nightly-tag",
+    }
+    require(required.issubset(forbidden), "Gemini runtime channel policy must reject nightly/preview/latest-redirect drift")
+
+
+def validate_projection_parity() -> None:
+    for folder in PROJECTION_FOLDERS:
+        source_dir = ROOT / folder
+        projected_dir = ROOT / ".gemini" / folder
+        require(source_dir.is_dir(), f"missing source projection folder: {folder}")
+        require(projected_dir.is_dir(), f"missing .gemini projection folder: {folder}")
+        source_files = sorted(path.relative_to(source_dir) for path in source_dir.rglob("*") if path.is_file())
+        projected_files = sorted(path.relative_to(projected_dir) for path in projected_dir.rglob("*") if path.is_file())
+        require(source_files == projected_files, f".gemini/{folder} file list must match {folder}")
+        for rel in source_files:
+            require(
+                read_text(source_dir / rel) == read_text(projected_dir / rel),
+                f".gemini/{folder}/{rel.as_posix()} must match {folder}/{rel.as_posix()}",
+            )
 
 
 def validate_instruction_docs() -> None:
@@ -324,11 +481,14 @@ def validate_all(strict: bool = False) -> None:
     validate_manifest()
     validate_settings()
     validate_mcp_inventory()
+    validate_extension_secret_settings()
     validate_commands()
     validate_skills()
     validate_subagents()
     validate_hooks()
     validate_browser_routing()
+    validate_runtime_channel_policy()
+    validate_projection_parity()
     validate_native_boundaries()
     validate_antigravity_policy()
     validate_instruction_docs()
@@ -340,13 +500,17 @@ VALIDATORS: dict[str, Callable[[bool], None]] = {
     "all": validate_all,
     "config": lambda strict: (validate_version_surfaces(), validate_settings(), validate_manifest(), validate_mcp_inventory()),
     "manifest": lambda strict: validate_manifest(),
+    "secret-settings": lambda strict: validate_extension_secret_settings(),
     "commands": lambda strict: validate_commands(),
     "skills": lambda strict: validate_skills(),
     "subagents": lambda strict: validate_subagents(),
     "hooks": lambda strict: validate_hooks(),
     "mcp": lambda strict: validate_mcp_inventory(),
     "browser": lambda strict: validate_browser_routing(),
+    "browser-agent": lambda strict: validate_browser_routing(),
     "runtime": lambda strict: validate_runtime_baseline(strict=strict),
+    "runtime-channel": lambda strict: validate_runtime_channel_policy(),
+    "projection": lambda strict: validate_projection_parity(),
     "instructions": lambda strict: validate_instruction_docs(),
     "memories": lambda strict: validate_serena_memories(),
     "native": lambda strict: validate_native_boundaries(),
@@ -358,9 +522,13 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Validate rldyour Gemini adapter surfaces.")
     parser.add_argument("target", choices=sorted(VALIDATORS), nargs="?", default="all")
     parser.add_argument("--strict", action="store_true")
+    parser.add_argument("--strict-native-schema", action="store_true")
+    parser.add_argument("--strict-native-json", action="store_true")
+    parser.add_argument("--strict-native-tools", action="store_true")
     args = parser.parse_args(argv)
+    strict = args.strict or args.strict_native_schema or args.strict_native_json or args.strict_native_tools
     try:
-        VALIDATORS[args.target](args.strict)
+        VALIDATORS[args.target](strict)
     except ValidationError as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1

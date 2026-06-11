@@ -1,72 +1,109 @@
 {
   "name": "rldyour-gemini",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "rldyour Gemini CLI configuration: commands, skills, subagents, hooks, MCP, browser routing, Serena memory, and release workflows.",
   "contextFileName": "GEMINI.md",
+  "settings": [
+    {
+      "name": "Context7 API key",
+      "description": "Optional API key for Context7 MCP.",
+      "envVar": "CONTEXT7_API_KEY",
+      "sensitive": true
+    },
+    {
+      "name": "GitHub personal access token",
+      "description": "Optional least-privilege token for GitHub MCP.",
+      "envVar": "GITHUB_PERSONAL_ACCESS_TOKEN",
+      "sensitive": true
+    }
+  ],
   "mcpServers": {
     "serena": {
       "command": "uvx",
-      "args": ["--from", "serena-agent==1.5.3", "--python", "3.13", "--prerelease", "allow", "serena", "start-mcp-server", "--project-from-cwd", "--context=gemini", "--enable-web-dashboard", "False", "--open-web-dashboard", "False"],
-      "startup_timeout_sec": 90,
-      "tool_timeout_sec": 180
+      "args": [
+        "--from",
+        "serena-agent==1.5.3",
+        "--python",
+        "3.13",
+        "--prerelease",
+        "allow",
+        "serena",
+        "start-mcp-server",
+        "--project-from-cwd",
+        "--context=gemini",
+        "--enable-web-dashboard",
+        "False",
+        "--open-web-dashboard",
+        "False"
+      ],
+      "timeout": 180000
     },
     "chrome-devtools": {
       "command": "bunx",
-      "args": ["chrome-devtools-mcp@1.2.0", "--headless", "--isolated", "--no-usage-statistics", "--no-performance-crux"],
-      "startup_timeout_sec": 45,
-      "tool_timeout_sec": 120
+      "args": [
+        "chrome-devtools-mcp@1.2.0",
+        "--headless",
+        "--isolated",
+        "--no-usage-statistics",
+        "--no-performance-crux"
+      ],
+      "timeout": 120000
     },
     "sequential-thinking": {
       "command": "bunx",
-      "args": ["@modelcontextprotocol/server-sequential-thinking@2025.12.18"],
-      "startup_timeout_sec": 30,
-      "tool_timeout_sec": 120
+      "args": [
+        "@modelcontextprotocol/server-sequential-thinking@2025.12.18"
+      ],
+      "timeout": 120000
     },
     "shadcn": {
       "command": "bunx",
-      "args": ["shadcn@4.11.0", "mcp"],
-      "startup_timeout_sec": 30,
-      "tool_timeout_sec": 120
+      "args": [
+        "shadcn@4.11.0",
+        "mcp"
+      ],
+      "timeout": 120000
     },
     "dart-flutter": {
       "command": "dart",
-      "args": ["mcp-server"],
-      "startup_timeout_sec": 30,
-      "tool_timeout_sec": 120
+      "args": [
+        "mcp-server"
+      ],
+      "timeout": 120000
     },
     "context7": {
       "command": "bunx",
-      "args": ["@upstash/context7-mcp@3.1.0"],
-      "env": {"CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"},
-      "startup_timeout_sec": 30,
-      "tool_timeout_sec": 120
+      "args": [
+        "@upstash/context7-mcp@3.1.0"
+      ],
+      "env": {
+        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+      },
+      "timeout": 120000
     },
     "github": {
       "url": "https://api.githubcopilot.com/mcp/",
-      "headers": {"Authorization": "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}"},
-      "toolsets": ["context", "repos", "issues", "pull_requests", "users"],
-      "startup_timeout_sec": 30,
-      "tool_timeout_sec": 120
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}",
+        "X-MCP-Toolsets": "context,repos,issues,pull_requests,users"
+      },
+      "timeout": 120000
     },
     "deepwiki": {
       "url": "https://mcp.deepwiki.com/mcp",
-      "startup_timeout_sec": 30,
-      "tool_timeout_sec": 120
+      "timeout": 120000
     },
     "grep": {
       "url": "https://mcp.grep.app",
-      "startup_timeout_sec": 30,
-      "tool_timeout_sec": 120
+      "timeout": 120000
     },
     "figma": {
       "url": "http://127.0.0.1:3845/mcp",
-      "startup_timeout_sec": 30,
-      "tool_timeout_sec": 120
+      "timeout": 120000
     },
     "openai-docs": {
       "url": "https://mcp.openai.com",
-      "startup_timeout_sec": 30,
-      "tool_timeout_sec": 120
+      "timeout": 120000
     }
   },
   "excludeTools": [

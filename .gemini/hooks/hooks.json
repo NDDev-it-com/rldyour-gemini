@@ -1,29 +1,58 @@
 {
-  "hooks": [
+  "SessionStart": [
     {
-      "event": "SessionStart",
-      "command": ".gemini/hooks/session_start_context.sh",
-      "timeout_seconds": 5,
-      "description": "Print project policy summary without mutation."
-    },
+      "matcher": "startup",
+      "hooks": [
+        {
+          "name": "session-start-context",
+          "type": "command",
+          "command": "${extensionPath}/hooks/session_start_context.sh",
+          "timeout": 5000,
+          "description": "Inject rldyour Gemini context without source mutation."
+        }
+      ]
+    }
+  ],
+  "BeforeTool": [
     {
-      "event": "BeforeTool",
-      "command": ".gemini/hooks/before_tool_policy.sh",
-      "timeout_seconds": 5,
-      "description": "Block destructive shell/git/file operations according to adapter policy."
-    },
+      "matcher": "read_file|grep_search|run_shell_command|write_file|replace|mcp_.*",
+      "hooks": [
+        {
+          "name": "before-tool-policy",
+          "type": "command",
+          "command": "${extensionPath}/hooks/before_tool_policy.sh",
+          "timeout": 5000,
+          "description": "Block destructive shell/git/file and secret-bearing operations."
+        }
+      ]
+    }
+  ],
+  "AfterAgent": [
     {
-      "event": "AfterAgent",
-      "command": ".gemini/hooks/after_agent_post_task_sync.sh",
-      "timeout_seconds": 10,
-      "description": "Run bounded post-task state checks without recursive loops."
-    },
+      "matcher": "*",
+      "hooks": [
+        {
+          "name": "after-agent-post-task-sync",
+          "type": "command",
+          "command": "${extensionPath}/hooks/after_agent_post_task_sync.sh",
+          "timeout": 10000,
+          "description": "Report bounded post-task state without recursive loops."
+        }
+      ]
+    }
+  ],
+  "SessionEnd": [
     {
-      "event": "SessionEnd",
-      "command": ".gemini/hooks/session_end_cleanup.sh",
-      "timeout_seconds": 10,
-      "description": "Report runtime-marker cleanup state without source mutation."
+      "matcher": "exit",
+      "hooks": [
+        {
+          "name": "session-end-cleanup",
+          "type": "command",
+          "command": "${extensionPath}/hooks/session_end_cleanup.sh",
+          "timeout": 10000,
+          "description": "Report runtime-marker cleanup state without source mutation."
+        }
+      ]
     }
   ]
 }
-
