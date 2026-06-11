@@ -38,8 +38,8 @@ underscores. Playwright MCP and Semgrep are retired and must not be active.
 ## Browser Policy
 
 Route browser tasks through Webwright, Playwright CLI + Skills, and Chrome
-DevTools MCP according to `references/browser-provider-routing.md`. Do not turn
-Webwright or Playwright into MCP servers.
+DevTools MCP according to `references/browser-provider-routing.md`. Keep
+Webwright as a non-MCP harness and keep Playwright CLI-only.
 
 ## cmux Boundary
 
@@ -52,4 +52,3 @@ background, headless, daemon, or detached orchestrator processes.
 
 Run repository-local validators for changed scope. Do not fake green checks.
 Installed-runtime checks are optional and require explicit local authentication.
-
