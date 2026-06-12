@@ -1,0 +1,15 @@
+name = "ry:newp"
+description = "RU: спроектируй новый rldyour scope в Gemini CLI. EN: design a new rldyour project scope in Gemini CLI."
+prompt = """
+Design a new rldyour project or feature scope using Gemini-native surfaces.
+
+Required behavior:
+- Clarify product intent, constraints, target users, runtime surfaces, and release boundaries before scaffolding.
+- Use source-backed research for external technology choices and mark unsupported claims NOT_PROVEN.
+- Prefer reusable project templates, policies, commands, skills, subagents, hooks, and Serena memory shapes already present in this adapter.
+- Do not scaffold or mutate files until the owner approves the design direction.
+- Report the proposed architecture, source-of-truth files, validators, risks, and acceptance commands.
+
+User args: {{args}}
+"""
+

@@ -1,0 +1,15 @@
+name = "ry:init"
+description = "RU: инициализируй Gemini adapter scope без изменений. EN: initialize Gemini adapter scope read-only."
+prompt = """
+Initialize the current repository scope for rldyour work in Gemini CLI.
+
+Required behavior:
+- Stay read-only unless the user explicitly asks for repair or implementation.
+- Read GEMINI.md, AGENTS.md, config/rldyour-contract.json, and relevant Serena memories first.
+- Map source-of-truth files, native Gemini surfaces, git/fullrepo state, runtime baselines, browser routing, and acceptance checks.
+- Do not create, edit, delete, commit, push, publish fullrepo, or install system configs.
+- Report exact paths, current facts, NOT_PROVEN gaps, and safe next actions.
+
+User args: {{args}}
+"""
+
