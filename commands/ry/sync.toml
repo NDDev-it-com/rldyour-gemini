@@ -1,0 +1,15 @@
+name = "ry:sync"
+description = "RU: синхронизируй Gemini docs, memories, git и fullrepo. EN: synchronize Gemini docs, memories, git, and fullrepo."
+prompt = """
+Run rldyour sync for completed Gemini adapter work.
+
+Required behavior:
+- Confirm Serena memories are current before durable docs or fullrepo publication.
+- Review uncommitted changes and separate source, docs, generated artifacts, runtime markers, secrets, and local cache files.
+- Run scope-matching validators and report exact pass/fail results.
+- Commit only coherent source changes with Conventional Commits when mutation is explicitly in scope.
+- Publish fullrepo only when effective project policy allows it, and never delete branches without explicit owner confirmation.
+
+User args: {{args}}
+"""
+

@@ -1,5 +1,5 @@
 name = "rldyour-project-policy"
-version = "1.0.3"
+version = "1.3.1"
 scope = "gemini-adapter"
 
 [execution]

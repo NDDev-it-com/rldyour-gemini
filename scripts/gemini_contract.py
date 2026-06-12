@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "1.0.3"
+VERSION = "1.3.1"
 RUNTIME_VERSION = "0.46.0"
 RUNTIME_PACKAGE = "@google/gemini-cli"
 EXPECTED_MCP = [
@@ -43,6 +43,24 @@ NATIVE_MCP_KEYS = {
 }
 SECRET_ENV_RE = re.compile(r"\$\{([A-Z0-9_]*(?:TOKEN|KEY|SECRET|PASSWORD)[A-Z0-9_]*)\}")
 PROJECTION_FOLDERS = ["commands", "skills", "agents", "hooks", "policies"]
+REQUIRED_RY_COMMANDS = {
+    "ry:init",
+    "ry:start",
+    "ry:newp",
+    "ry:review",
+    "ry:repair",
+    "ry:deploy",
+    "ry:sync",
+}
+REQUIRED_LIFECYCLE_SKILLS = {
+    "ry-init",
+    "ry-start",
+    "ry-newp",
+    "ry-review",
+    "ry-repair",
+    "ry-deploy",
+    "ry-sync",
+}
 RETIRED_PATTERNS = [
     re.compile(r"@playwright/mcp", re.IGNORECASE),
     re.compile(r"\bplaywright[-_ ]mcp\b", re.IGNORECASE),
@@ -249,21 +267,26 @@ def command_files() -> list[Path]:
 def validate_commands() -> None:
     files = command_files()
     require(len(files) >= 8, "at least 8 Gemini commands are required")
+    command_names: set[str] = set()
     for path in files:
         data = load_toml(path)
         rel = path.relative_to(ROOT / ".gemini/commands")
         expected = ":".join(rel.with_suffix("").parts)
+        command_names.add(str(data.get("name")))
         require(data.get("name") == expected, f"{path}: command name must match path namespace {expected}")
         require("RU:" in data.get("description", "") and "EN:" in data.get("description", ""), f"{path}: description must be RU/EN")
         prompt = data.get("prompt", "")
         require(isinstance(prompt, str) and len(prompt.strip()) > 80, f"{path}: prompt is required")
         require("{{args}}" in prompt, f"{path}: prompt must mention user args")
         require("!{" not in prompt, f"{path}: shell injection syntax is forbidden")
+    missing = sorted(REQUIRED_RY_COMMANDS - command_names)
+    require(not missing, f"missing required Gemini lifecycle commands: {missing}")
 
 
 def validate_skills() -> None:
     skills = sorted((ROOT / ".gemini/skills").glob("*/SKILL.md"))
     require(len(skills) >= 8, "at least 8 Gemini skills are required")
+    skill_names: set[str] = set()
     required = [
         "# Purpose",
         "# Native Gemini Boundary",
@@ -279,8 +302,13 @@ def validate_skills() -> None:
         text = read_text(path)
         require(text.startswith("---\n"), f"{path}: skill frontmatter required")
         require("name:" in text and "description:" in text, f"{path}: name and description required")
+        match = re.search(r"^name:\s*([A-Za-z0-9_-]+)\s*$", text, re.MULTILINE)
+        require(match is not None, f"{path}: skill name must be parseable")
+        skill_names.add(match.group(1))
         for heading in required:
             require(heading in text, f"{path}: missing heading {heading}")
+    missing = sorted(REQUIRED_LIFECYCLE_SKILLS - skill_names)
+    require(not missing, f"missing required Gemini lifecycle skills: {missing}")
 
 
 def validate_subagents() -> None:

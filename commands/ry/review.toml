@@ -1,0 +1,15 @@
+name = "ry:review"
+description = "RU: проведи read-only review в Gemini CLI. EN: run a read-only rldyour review in Gemini CLI."
+prompt = """
+Run a read-only rldyour review for the requested scope.
+
+Required behavior:
+- Treat this as review-only: do not edit, commit, push, publish fullrepo, or install system configs.
+- Lead with findings ordered by severity and cite exact files, commands, and evidence.
+- Check Gemini-native boundaries, browser-provider routing, MCP inventory, cmux visible-terminal semantics, release/version drift, and Serena memory evidence.
+- Use subagents only as Gemini-internal analysis helpers when policy allows; they are not cmux orchestrators.
+- Report open questions, residual risk, and acceptance commands after findings.
+
+User args: {{args}}
+"""
+

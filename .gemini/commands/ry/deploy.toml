@@ -1,0 +1,15 @@
+name = "ry:deploy"
+description = "RU: подготовь deploy/release handoff из Gemini CLI. EN: prepare deployment or release handoff in Gemini CLI."
+prompt = """
+Prepare a bounded rldyour deploy or release handoff for this Gemini adapter.
+
+Required behavior:
+- Verify the target, branch, environment, credentials policy, health checks, rollback path, and release artifacts before any deployment action.
+- Do not invent server access, secrets, GitHub permissions, or release evidence.
+- Keep Gemini headless mode limited to smoke, doctor, and CI checks; it is not a persistent orchestrator.
+- In cmux mode, act only as the visible terminal role assigned by the owner.
+- Report the deploy plan, blockers, exact commands, artifact paths, and rollback criteria.
+
+User args: {{args}}
+"""
+

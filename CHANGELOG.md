@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.3.1] - 2026-06-12
+
+### Fixed
+
+- Stabilize the public 1.3 line with release CI, Context7 MCP freshness, and synchronized four-adapter evidence.
+
+## [1.3.0] - 2026-06-12
+
+### Added
+
+- Add Gemini-native `/ry:init`, `/ry:newp`, `/ry:review`, `/ry:deploy`, and `/ry:sync` TOML commands plus matching Agent Skills so Gemini reaches the root seven-flow lifecycle contract.
+
+### Changed
+
+- Align the Gemini adapter product version with the coordinated four-configuration `1.3.0` stable release contract. This intentionally advances from `1.0.3` to `1.3.0` so Claude, Codex, OpenCode, and Gemini publish the same stable adapter line while retaining Gemini CLI `0.46.0` as the runtime baseline.
+
 ## [1.0.3] - 2026-06-12
 
 ### Fixed
