@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "1.3.4"
+VERSION = "1.3.5"
 RUNTIME_VERSION = "0.46.0"
 RUNTIME_PACKAGE = "@google/gemini-cli"
 EXPECTED_MCP = [
@@ -473,7 +473,7 @@ def validate_projection_parity() -> None:
 def validate_instruction_docs() -> None:
     docs = [ROOT / "README.md", ROOT / "AGENTS.md", ROOT / "GEMINI.md", ROOT / "SECURITY.md"]
     combined = "\n".join(read_text(path) for path in docs)
-    for phrase in [VERSION, RUNTIME_VERSION, RUNTIME_PACKAGE, "Playwright MCP", "Semgrep", "Antigravity"]:
+    for phrase in [VERSION, RUNTIME_VERSION, RUNTIME_PACKAGE, "approved active inventory", "Antigravity"]:
         require(phrase in combined, f"instruction docs must mention {phrase}")
     require("YOLO" in combined and "launcher" in combined, "docs must keep YOLO launcher-only")
 

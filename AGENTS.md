@@ -33,7 +33,9 @@ allowed only in documentation when they clarify boundaries.
 The active MCP inventory is exactly 11 servers: Serena, Chrome DevTools,
 Sequential Thinking, shadcn, Dart/Flutter, Context7, GitHub, DeepWiki, Grep,
 Figma, and OpenAI Docs. Aliases are dash-separated and must not contain
-underscores. Playwright MCP and Semgrep are retired and must not be active.
+underscores. Configure only providers listed in the approved active inventory.
+Removed or historical tools must not be reintroduced unless the owner updates
+the inventory and release policy.
 
 ## Browser Policy
 

@@ -34,7 +34,7 @@ Provider used, URL/state, viewport matrix, screenshots/traces/logs, and findings
 
 # Forbidden Actions
 
-Do not activate Playwright MCP or treat Webwright as MCP.
+Use only approved active browser providers and do not treat Webwright as MCP.
 
 # Acceptance Checks
 
