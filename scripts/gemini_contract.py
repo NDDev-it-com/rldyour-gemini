@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 RUNTIME_VERSION = "0.46.0"
 RUNTIME_PACKAGE = "@google/gemini-cli"
 EXPECTED_MCP = [
@@ -207,6 +207,11 @@ def validate_settings() -> None:
     require(settings["context"]["fileName"] == "GEMINI.md", "settings context fileName must be GEMINI.md")
     require(settings["general"]["defaultApprovalMode"] == "default", "committed settings must not enable YOLO")
     require(settings["general"]["checkpointing"]["enabled"] is True, "settings general.checkpointing.enabled must be true")
+    loading_phrases = settings["ui"].get("loadingPhrases")
+    require(
+        loading_phrases in {"tips", "witty", "all", "off"},
+        "settings ui.loadingPhrases must use Gemini native enum: tips, witty, all, or off",
+    )
     require(settings["privacy"]["usageStatisticsEnabled"] is False, "usage statistics must be disabled in template")
     require(settings["hooksConfig"]["enabled"] is True, "hooks must be enabled")
     validate_hook_config(settings.get("hooks"), ".gemini/settings.json hooks", project_settings=True)

@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.0.3] - 2026-06-12
+
+### Fixed
+
+- Use Gemini CLI native `ui.loadingPhrases = "off"` and enforce the documented enum in settings validation.
+
 ## [1.0.2] - 2026-06-12
 
 ### Fixed
