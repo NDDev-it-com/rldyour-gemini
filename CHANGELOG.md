@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.3.4] - 2026-06-12
+
+### Fixed
+
+- Make the Scorecard workflow run on `pull_request` and `push` so the required
+  branch-protection check is emitted for protected branch updates.
+
 ## [1.3.3] - 2026-06-12
 
 ### Fixed
