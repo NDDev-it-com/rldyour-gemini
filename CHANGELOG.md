@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.3.3] - 2026-06-12
+
+### Fixed
+
+- Synchronize tracked Gemini Serena memories with the stabilized `1.3.x`
+  release tuple so adapter memory validation stays green at the release HEAD.
+
 ## [1.3.2] - 2026-06-12
 
 ### Fixed

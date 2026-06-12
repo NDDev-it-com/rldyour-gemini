@@ -1,5 +1,5 @@
 name = "rldyour-git-safety"
-version = "1.3.2"
+version = "1.3.3"
 scope = "gemini-adapter"
 
 [rules]
