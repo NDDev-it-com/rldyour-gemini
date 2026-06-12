@@ -1,6 +1,10 @@
 name: Scorecard
 
 on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
   branch_protection_rule:
   schedule:
     - cron: "21 6 * * 3"
