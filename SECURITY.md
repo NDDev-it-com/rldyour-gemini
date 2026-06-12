@@ -4,9 +4,9 @@
 
 | Version | Supported |
 | --- | --- |
-| `1.3.0` | Yes |
+| `1.3.1` | Yes |
 
-Only the current exact tag `1.3.0` receives security fixes. The `1.3.x` line label tracks only the latest released patch, not every historical patch in the line. Development snapshots and older tags are not supported unless the root control plane explicitly pins them.
+Only the current exact tag `1.3.1` receives security fixes. The `1.3.x` line label tracks only the latest released patch, not every historical patch in the line. Development snapshots and older tags are not supported unless the root control plane explicitly pins them.
 
 ## Secrets
 
