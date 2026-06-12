@@ -12,6 +12,14 @@
     "hooks",
     "mcpServers"
   ],
+  "documented_enum_values": {
+    "ui.loadingPhrases": [
+      "tips",
+      "witty",
+      "all",
+      "off"
+    ]
+  },
   "forbidden_repository_shapes": [
     "top-level checkpointing",
     "top-level preferredEditor",

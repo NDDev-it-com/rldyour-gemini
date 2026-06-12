@@ -13,3 +13,6 @@ def test_version_surfaces_match():
 def test_runtime_baseline_matches_policy():
     gemini_contract.validate_runtime_baseline(strict=False)
 
+
+def test_settings_use_native_loading_phrases_enum():
+    gemini_contract.validate_settings()

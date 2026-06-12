@@ -1,5 +1,8 @@
 name: rldyour-gemini
+project_name: rldyour-gemini
 language: python
+languages:
+  - python
 ignored_paths:
   - .git
   - .pytest_cache
@@ -7,4 +10,6 @@ ignored_paths:
   - .serena/cache
   - __pycache__
   - dist
-
+ignore_all_files_in_gitignore: true
+read_only: false
+encoding: utf-8

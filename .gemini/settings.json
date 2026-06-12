@@ -13,7 +13,7 @@
   "ui": {
     "hideTips": true,
     "hideBanner": false,
-    "loadingPhrases": false,
+    "loadingPhrases": "off",
     "showMemoryUsage": false,
     "showCitations": true
   },
