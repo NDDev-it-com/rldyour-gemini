@@ -21,10 +21,9 @@ Record the active Gemini MCP inventory.
 
 ## Operational Rules
 
-- Keep Playwright MCP and Semgrep out of active MCP config.
+- Configure only MCP servers listed in the approved active inventory.
 - Keep Chrome DevTools MCP active.
 
 ## Last Verified
 
-2026-06-11
-
+2026-06-13

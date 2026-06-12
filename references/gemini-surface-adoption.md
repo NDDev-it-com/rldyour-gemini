@@ -7,7 +7,7 @@ surfaces: context files, project settings, extension manifest, TOML commands,
 Agent Skills, subagents, hooks, policies, MCP servers, model routing, and
 headless prompt smoke mode.
 
-Gemini built-in `browser_agent` is intentionally disabled in `1.3.4`; browser
+Gemini built-in `browser_agent` is intentionally disabled in `1.3.5`; browser
 work remains routed through Webwright, Playwright CLI + Skills, and Chrome
 DevTools MCP until a separate provider model and validator prove otherwise.
 

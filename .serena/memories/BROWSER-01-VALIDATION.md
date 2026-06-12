@@ -20,10 +20,9 @@ Record browser-provider routing for Gemini workflows.
 
 ## Operational Rules
 
-- Do not activate Playwright MCP.
+- Configure only browser providers listed in the approved active inventory.
 - Do not represent Webwright as an MCP server.
 
 ## Last Verified
 
-2026-06-11
-
+2026-06-13

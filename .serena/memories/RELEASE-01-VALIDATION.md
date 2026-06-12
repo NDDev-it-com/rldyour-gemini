@@ -6,7 +6,7 @@ Record release validation requirements for the current Gemini adapter release.
 
 ## Current Facts
 
-- Current adapter release is `1.3.4`.
+- Current adapter release is `1.3.5`.
 - Initial adapter release was `1.0.0`.
 - Only exact current numeric tags are supported.
 - Public CI must use GitHub-hosted runners and full SHA-pinned actions.
@@ -29,4 +29,4 @@ Record release validation requirements for the current Gemini adapter release.
 
 ## Last Verified
 
-2026-06-12
+2026-06-13

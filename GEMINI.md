@@ -6,7 +6,7 @@ plane.
 
 ## Current Facts
 
-- Adapter version: `1.3.4`.
+- Adapter version: `1.3.5`.
 - Runtime baseline: `@google/gemini-cli` `0.46.0`.
 - Supported access target: enterprise, paid API-key, Vertex AI, Google Cloud, or
   explicitly owner-approved authenticated environments.
@@ -18,7 +18,8 @@ plane.
 
 - Use Gemini-native configuration files: `GEMINI.md`, `.gemini/settings.json`,
   `gemini-extension.json`, TOML commands, skills, agents, hooks, and policies.
-- Do not introduce Playwright MCP or Semgrep active configuration.
+- Configure only providers listed in the approved active inventory; removed or
+  historical tools require an explicit inventory and release-policy update.
 - Keep browser routing split: Webwright for long-horizon workflows, Playwright
   CLI for screenshots/flows/visual evidence, Chrome DevTools MCP for debugging.
 - Gemini built-in `browser_agent` is disabled for this release; do not enable it

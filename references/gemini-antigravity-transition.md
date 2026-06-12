@@ -2,7 +2,7 @@
 
 ## Current Fact
 
-Gemini CLI adapter `1.3.4` targets enterprise, paid API-key, Vertex AI, Google
+Gemini CLI adapter `1.3.5` targets enterprise, paid API-key, Vertex AI, Google
 Cloud, and explicitly owner-approved authenticated environments.
 
 Consumer OAuth availability after `2026-06-18` is `NOT_PROVEN` for this

@@ -9,9 +9,8 @@ Required checks:
 - Native Gemini surfaces validate.
 - MCP inventory is exactly the 11 active servers.
 - Antigravity transition policy is documented.
-- No Playwright MCP, Semgrep, secrets, caches, runtime markers, or generated junk are active.
+- No unapproved active providers, secrets, caches, runtime markers, or generated junk are active.
 - CI workflows use public/free GitHub-hosted runners and full SHA action pins.
 
 User args: {{args}}
 """
-

@@ -13,8 +13,9 @@ Gemini built-in `browser_agent` is disabled for this release. It is not a silent
 replacement for any provider above and must be added as a separately validated
 provider before use.
 
-Forbidden current state:
+Current provider boundary:
 
-- Active Playwright MCP.
-- Webwright as MCP.
-- Semgrep as an active MCP or provider.
+- Configure only providers listed in the approved active inventory.
+- Webwright remains a non-MCP provider/harness.
+- Removed or historical tools require an explicit inventory and release-policy
+  update before they can become active.

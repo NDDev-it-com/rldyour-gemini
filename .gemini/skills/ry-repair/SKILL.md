@@ -38,8 +38,8 @@ File paths, command output summaries, validator names, and `NOT_PROVEN` gaps.
 
 # Forbidden Actions
 
-Do not add Playwright MCP, Semgrep active config, tool-specific tombstone
-validators, background orchestrators, or unbounded hooks.
+Do not add unapproved active providers, tool-specific tombstone validators,
+background orchestrators, or unbounded hooks.
 
 # Acceptance Checks
 

@@ -15,7 +15,8 @@ are required, and file reads for evidence artifacts.
 
 # MCP Server Access Policy
 
-Chrome DevTools MCP is active. Playwright MCP is forbidden.
+Use only the MCP servers and browser providers listed in the approved active
+inventory.
 
 # Browser Provider Routing
 
@@ -31,4 +32,4 @@ Provider used, URL/state, viewport matrix, artifact paths, findings, confidence.
 Do not commit, push, publish fullrepo, install system configs, delete branches,
 or spawn background browser daemons.
 
-Do not introduce Playwright MCP, Webwright MCP, or background browser daemons.
+Do not introduce unapproved browser providers or background browser daemons.

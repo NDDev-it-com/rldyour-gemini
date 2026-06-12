@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.3.5] - 2026-06-13
+
+### Changed
+
+- Replace active agent-facing retired-tool tombstone wording with positive
+  inventory policy language while preserving Gemini-native browser/provider
+  routing.
+
 ## [1.3.4] - 2026-06-12
 
 ### Fixed
