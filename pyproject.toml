@@ -1,6 +1,6 @@
 [project]
 name = "rldyour-gemini"
-version = "1.3.5"
+version = "1.3.6"
 description = "rldyour AI CLI configuration for Gemini CLI: native extensions, GEMINI.md context, commands, skills, subagents, hooks, MCP, browser-provider routing, Serena memory, and runtime validation."
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
