@@ -10,7 +10,7 @@ MCP servers, browser-provider routing, Serena memory, and release validation.
 
 | Surface | Version |
 | --- | ---: |
-| Adapter | `1.3.5` |
+| Adapter | `1.3.6` |
 | Runtime | `@google/gemini-cli` `0.46.0` |
 | Runtime channel | `stable/npm-latest` |
 | License | `AGPL-3.0-or-later` |
@@ -62,7 +62,7 @@ unless the owner updates the inventory and release policy.
 
 ## Access And Antigravity Notice
 
-Gemini CLI adapter `1.3.5` targets enterprise, paid API-key, Vertex AI, Google
+Gemini CLI adapter `1.3.6` targets enterprise, paid API-key, Vertex AI, Google
 Cloud, and explicitly owner-approved authenticated environments. It does not
 promise long-term consumer OAuth availability after the Google Antigravity
 transition dated June 18, 2026. See
