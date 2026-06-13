@@ -11,7 +11,7 @@ import os
 
 _ = os.environ.get("RLDYOUR_GEMINI_HOOK_INPUT", "")
 message = (
-    "rldyour-gemini adapter=1.3.5 runtime=@google/gemini-cli@0.46.0; "
+    "rldyour-gemini adapter=1.3.6 runtime=@google/gemini-cli@0.46.0; "
     "standard mode is owner-led; cmux orchestration is visible-terminal-only; "
     "browser routing is Webwright, Playwright CLI, and Chrome DevTools MCP; "
     "only approved inventory providers are active; supported auth is enterprise, "

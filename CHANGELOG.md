@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+
+## [1.3.6] - 2026-06-14
+
+### Changed
+
+- Pin Context7 MCP to latest 3.2.1
+
 ## [1.3.5] - 2026-06-13
 
 ### Changed
