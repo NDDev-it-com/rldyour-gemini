@@ -6,7 +6,7 @@ plane.
 
 ## Current Facts
 
-- Adapter version: `1.3.5`.
+- Adapter version: `1.3.6`.
 - Runtime baseline: `@google/gemini-cli` `0.46.0`.
 - Supported access target: enterprise, paid API-key, Vertex AI, Google Cloud, or
   explicitly owner-approved authenticated environments.
