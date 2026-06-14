@@ -6,7 +6,7 @@ Describe the Gemini CLI-native adapter surface.
 
 ## Current Facts
 
-- Adapter version is `1.3.6`.
+- Adapter version is `1.3.7`.
 - Runtime configuration uses Gemini-native surfaces, not Claude, Codex, or
   OpenCode runtime files.
 - Native surfaces include `GEMINI.md`, settings JSON, extension manifest, TOML
