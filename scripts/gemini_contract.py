@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "1.3.6"
+VERSION = "1.3.7"
 RUNTIME_VERSION = "0.46.0"
 RUNTIME_PACKAGE = "@google/gemini-cli"
 EXPECTED_MCP = [
@@ -223,7 +223,15 @@ def validate_extension_secret_settings(manifest: dict[str, Any] | None = None) -
 def validate_settings() -> None:
     settings = load_json(ROOT / ".gemini/settings.json")
     require(settings["context"]["fileName"] == "GEMINI.md", "settings context fileName must be GEMINI.md")
-    require(settings["general"]["defaultApprovalMode"] == "default", "committed settings must not enable YOLO")
+    require(
+        settings["general"]["defaultApprovalMode"] == "auto_edit",
+        "committed defaultApprovalMode must be auto_edit: the maximal committable owner-autonomy mode "
+        "(auto-approves edits without prompts). YOLO is launcher-only (--approval-mode=yolo) and is "
+        "silently downgraded to default if committed, so it must never appear in committed settings.",
+    )
+    security = settings.get("security") or {}
+    require(security.get("disableYoloMode") is False, "security.disableYoloMode must be false so launcher YOLO stays available")
+    require(security.get("toolSandboxing") is False, "security.toolSandboxing must be false for owner full-auto (no tool sandbox)")
     require(settings["general"]["checkpointing"]["enabled"] is True, "settings general.checkpointing.enabled must be true")
     loading_phrases = settings["ui"].get("loadingPhrases")
     require(

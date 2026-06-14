@@ -9,7 +9,7 @@ Find safety, secrets, auth, hook, MCP, and release risks before they ship.
 
 # Native Gemini Boundary
 
-Gemini committed settings use default approval mode; YOLO is launcher-only.
+Gemini committed settings use the `auto_edit` approval mode (maximal committable owner autonomy); full YOLO is launcher-only (`gemini --approval-mode=yolo`).
 
 # When To Use
 

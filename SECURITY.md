@@ -9,7 +9,7 @@ the root control plane explicitly pins them.
 
 | Version | Supported |
 | --- | --- |
-| Current exact tag `1.3.6` | yes |
+| Current exact tag `1.3.7` | yes |
 | Older minor / major lines | no |
 
 ## Secrets
@@ -21,9 +21,12 @@ remain local and ignored.
 
 ## Runtime Posture
 
-Committed Gemini project settings use the default approval mode. YOLO/full-auto
-execution is an owner launcher decision and must not be silently enabled by this
-repository.
+Committed Gemini project settings use the `auto_edit` approval mode: the maximal
+owner-autonomy posture that Gemini CLI accepts in committed config (it
+auto-approves edits without prompting). Full YOLO (auto-approve every action,
+including shell) can only be enabled through the launcher
+(`gemini --approval-mode=yolo`); Gemini CLI silently downgrades a committed
+`yolo` value to default, so YOLO must never be written into committed settings.
 
 ## Reporting
 

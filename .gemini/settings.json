@@ -4,11 +4,15 @@
     "fileName": "GEMINI.md"
   },
   "general": {
-    "defaultApprovalMode": "default",
+    "defaultApprovalMode": "auto_edit",
     "preferredEditor": "vscode",
     "checkpointing": {
       "enabled": true
     }
+  },
+  "security": {
+    "disableYoloMode": false,
+    "toolSandboxing": false
   },
   "ui": {
     "hideTips": true,
