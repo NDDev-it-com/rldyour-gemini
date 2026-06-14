@@ -6,10 +6,10 @@
 
 | Surface | Value |
 | --- | ---: |
-| Adapter version | `1.3.6` |
+| Adapter version | `1.3.7` |
 | Runtime baseline | `@google/gemini-cli` `0.46.0` |
 | Runtime channel | `stable/npm-latest` |
-| GitHub release tag | `1.3.6` |
+| GitHub release tag | `1.3.7` |
 | Pinned commit | `001fe7784a1d6cf27eb4cb94f02b84d95316b19b` |
 
 Gemini CLI freshness uses `npm view @google/gemini-cli version` as the primary
@@ -217,7 +217,7 @@ release-policy update.
 
 ### Access and Antigravity Notice
 
-Gemini CLI adapter `1.3.6` targets enterprise, paid API-key, Vertex AI, Google
+Gemini CLI adapter `1.3.7` targets enterprise, paid API-key, Vertex AI, Google
 Cloud, and explicitly owner-approved authenticated environments. Consumer OAuth
 availability after June 18, 2026 is `NOT_PROVEN` for this adapter because
 Google announced a transition of unpaid and Google One Gemini CLI users to
